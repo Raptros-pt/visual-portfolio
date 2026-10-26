@@ -1,239 +1,222 @@
 /* ==========================================
    1. CSS RESET & GLOBAL VARIABLES
    ========================================== */
-   *{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-   }
+}
 
-   :root {
+:root {
     --bg-color: #0b0f0e;
     --surface-color: #121a18;
     --accent-sage: #8a9a86;
     --text-primary: #f0f4f1;
     --text-muted: #94a39b;
     --border-color: #222d28;
-   }
+}
 
-   body {
+body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
-   }
+}
 
-   /*========================================
+/* ==========================================
    2. NAVIGATION BAR
-     ======================================== */
-     .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem 5%;
-        background-color: rgba(11, 15, 14, 0.85);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border-color);
-        z-index: 1000;
-     }
+   ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+}
 
-     .logo {
-        font-weight: 700;
-        letter-spacing: 1px;
-     }
-     
-     .logo span {
-        color: var(--accent-sage);
-     }
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
-     nav {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-     }
+.logo {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
 
-     nav a {
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 0.95rem;
-        transition: color 0.2s ease;
-     }
+.logo span {
+    color: var(--accent-sage);
+}
 
-     nav a:hover {
-        color: var(--text-primary);
-     }
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
 
-     .nav-cta {
-        background-color: var(--accent-sage);
-        color: var(--bg-color) !important;
-        padding: 0.5rem 1.2rem;
-        border-radius: 4px;
-        font-weight: 600;
-     }
+.nav-links a:hover {
+    color: var(--text-primary);
+}
 
-     /*========================================
-        3. Hero Section
-       ======================================== */
-    .hero-section {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 8rem 5% 4rem;
-    }
+/* ==========================================
+   Hire Me Dropdown Context Menu
+   ========================================== */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-    .badge {
-        display: inline-block;
-        background-color: var(--surface-color);
-        color: var(--accent-sage);
-        border: 1px solid var(--border-color);
-        padding: 0.3rem 0.8rem;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+.dropdown-toggle {
+    cursor: pointer;
+    background-color: var(--accent-sage);
+    color: var(--bg-color);
+    padding: 0.6rem 1.25rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
 
-    .hero-content h1 {
-        font-size: clamp(2.5rem, 5vw, 4.5rem);
-        max-width: 900px;
-        margin-bottom: 1.5rem;
-        font-weight: 800;
-    }
+.dropdown-toggle:hover {
+    background-color: #9ab095;
+    transform: translateY(-2px);
+}
 
-    .hero-content h1 span {
-        color: var(--accent-sage);
-    }
+/* Dropdown Menu Box (Hidden by default, reveals on hover) */
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-width: 220px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 100;
+    overflow: hidden;
+}
 
-    .hero-content p {
-        color: var(--text-muted);
-        font-size: 1.15rem;
-        max-width: 600px;
-        margin-bottom: 3rem;
-    }
+/* Reveal menu when hovering over the dropdown container */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
-    .hero-asset-container {
-        width: 100%;
-        max-width: 260px;
-        margin: 2.5rem auto 0;
-        padding: 2rem;
-        background-color: #f4f6f5;
-        border: 1px solid rgba(255, 255. 255, 0.1);
-        border-radius: 16px;
-        box-shadow: 0 20px 40px rggba(0, 0, 0, 0.4);
+/* Individual Links Inside the Context Menu */
+.dropdown-menu a {
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
 
-        /* Animation properties */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    /* Interactive hover enhancement */
-    .hero-asset-container:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 25px 50px rgba(138, 154, 134, 0.25);
-    }
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
 
-    .floating-asset {
-        width: 100%;
-        height: auto;
-        filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+.dropdown-menu a span {
+    color: var(--accent-sage);
+}
 
-        animation: float 4s ease-in-out infinite;
-    }
+.dropdown-menu a:hover {
+    background-color: rgba(138, 154, 134, 0.1);
+    color: var(--accent-sage);
+}
 
-    /*========================================
-      4. ARCHIVE / PROGRESSION GRID
-      ======================================== */
-    .archive-section {
-        padding: 6rem 5%;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+/* ==========================================
+   3. HERO SECTION
+   ========================================== */
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 5% 2rem;
+}
 
-    .archive-section h2 {
-        font-size: 2rem;
-        margin-bottom: 3rem;
-        border-left: 3px solid var(--accent-sage);
-        padding-left: 1rem;
-    }
+.badge {
+    display: inline-block;
+    background-color: var(--surface-color);
+    color: var(--accent-sage);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-    }
+.hero-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
 
-    .archive-card {
-        background-color: var(--surface-color);
-        border: 1px solid var(--border-color);
-        padding: 2.5rem;
-        display: flex;
-        flex-direction: column;
-        Justify-content: flex;
-        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3 ease;
-    }
+.hero-content h1 span {
+    color: var(--accent-sage);
+}
 
-    .archive-card:hover {
-        transform: translateY(-6px);
-        border-color: var(--accent-sage);
-        box-shadow: 0 12px 30px rgba(138, 154, 134, 0,15);
-    }
+.hero-content p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
 
-    .card-content {
-        transform: translateY(-6px);
-        flex-direction: column;
-        flex-grow: 1;
-    }
+.hero-asset-container {
+    width: 100%;
+    max-width: 260px;
+    margin: 1.5rem auto 0;
+    padding: 2rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .card-tag {
-        display: inline-block;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: var(--accent-sage);
-        margin-bottom: 1rem;
-        font-weight: 700;
-    }
+.hero-asset-container:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(138, 154, 134, 0.25);
+}
 
-    .archive-card h3 {
-        font-size: 1.25rem;
-        margin-bottom: 0.75rem;
-    }
+.floating-asset {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+    animation: float 4s ease-in-out infinite;
+}
 
-    .archive-card p {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-    }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
 
-    /*========================================
-      5. FOOTER
-      ======================================== */
-    footer {
-        text-align: center;
-        padding: 3rem 5%;
-        border-top: 1px solid var(--border-color);
-        color: var(--text-muted);
-        font-size: 0.9rem;
-    }
-
-    @keyframes float {
-        0% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-8px);
-        }
-        100% {
-            transform: translateY(0px);
-        }
-    }
-
-    /* ==========================================
-   4. PROGRESSION LOG / ARCHIVE GRID
+/* ==========================================
+   4. ARCHIVE / PROGRESSION GRID
    ========================================== */
 .archive-section {
     max-width: 1200px;
@@ -249,7 +232,6 @@
     padding-left: 1rem;
 }
 
-/* Vertical Sage Accent Bar next to Section Title */
 .archive-section h2::before {
     content: '';
     position: absolute;
@@ -261,14 +243,12 @@
     border-radius: 2px;
 }
 
-/* Corrected Grid Container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-/* Individual Card Styling */
 .archive-card {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
@@ -303,7 +283,7 @@
     font-size: 1.35rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .archive-card p {
@@ -312,7 +292,6 @@
     line-height: 1.6;
 }
 
-/* Card Preview Media Frame */
 .card-media {
     width: 100%;
     height: 180px;
@@ -352,14 +331,12 @@
     letter-spacing: 1px;
 }
 
-/* Card Content Wrapper */
 .card-content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-/* Card Action Link */
 .card-link {
     display: inline-flex;
     align-items: center;
@@ -383,4 +360,77 @@
 
 .card-link:hover span {
     transform: translateX(4px);
+}
+
+/* ==========================================
+   5. FOOTER
+   ========================================== */
+.site-footer {
+    text-align: center;
+    padding: 4rem 5%;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background-color: var(--surface-color);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    text-align: left;
+}
+
+.footer-brand p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-sage);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.visitor-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.counter-label {
+    letter-spacing: 1px;
+}
+
+.visitor-counter img {
+    height: 20px;
+    border-radius: 4px;
 }
